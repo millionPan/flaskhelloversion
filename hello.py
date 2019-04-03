@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask,render_template
 
 app=Flask(__name__)
 
-@app.route('/a')
+@app.route('/')
 def hello():
-    return '<h1 style="color:purple;font-size:40px;">hello,World!</h1>'
+    return render_template('index.html')
 
 @app.route('/hello/')
 def hello2():
@@ -13,7 +13,7 @@ def hello2():
 
 @app.route('/user/<name>')
 def user(name):
-    return '<h1>hello,%s!</h1>' % name
+    return render_template('user.html',username=name)
 
 
 if __name__=='__main__':
