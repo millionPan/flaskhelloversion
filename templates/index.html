@@ -35,9 +35,10 @@
    <label>密码：</label><input type="password" name="password"><br>
    <label>确认密码：</label><input type="password" name="password2"><br>
    <input type="submit" value="提交"><br>
-   <!-- {% for message in get_flashed_messages() %}
+   <!-- 使用遍历获取闪现消息 -->
+   {% for message in get_flashed_messages() %}
      {{message}}
-     {% endfor %} -->
+     {% endfor %}
      </form>
 
 
