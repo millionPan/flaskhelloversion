@@ -35,14 +35,26 @@
    <label>密码：</label><input type="password" name="password"><br>
    <label>确认密码：</label><input type="password" name="password2"><br>
    <input type="submit" value="提交"><br>
+</form>
    <!-- 使用遍历获取闪现消息 -->
    {% for message in get_flashed_messages() %}
      {{message}}
      {% endfor %}
-     </form>
+    
 
+<hr>
 
-
+<form action="" method="post">
+    <!-- .label 中文 框 -->
+    {{form.csrf_token()}}
+{{form.username.label}}{{form.username}} <br>
+{{form.password.label}}{{form.password}}<br>
+{{form.password2.label}}{{form.password2}}<br>
+{{form.submit}}
+</form>
+{% for message in get_flashed_messages() %}
+{{message}}
+{% endfor %}
 
 </body>
 </html>
