@@ -15,6 +15,34 @@
 </head>
 <body>
     <h1>Hello world!</h1>
+    <!-- {{fruits}} -->
+    <ul>
+        {% for i in fruits %}
+       <!-- 过滤器，链式调用 -->
+       <li>{{i|upper|reverse}}</li> 
+      
+        {% endfor %}   
+    </ul>
+    {% for i in fruits %}
+    {{i}}
+    {% endfor %}
+
+
+
+    <!-- web表单 -->
+    <form  method="POST">
+   <label>用户名：</label><input type="text" name="username"><br>
+   <label>密码：</label><input type="password" name="password"><br>
+   <label>确认密码：</label><input type="password" name="password2"><br>
+   <input type="submit" value="提交"><br>
+   <!-- {% for message in get_flashed_messages() %}
+     {{message}}
+     {% endfor %} -->
+     </form>
+
+
+
+
 </body>
 </html>
 
