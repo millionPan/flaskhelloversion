@@ -44,14 +44,14 @@
 
 <hr>
 
-<form action="" method="post">
-    <!-- .label 中文 框 -->
+<!-- <form action="" method="post">
+  
     {{form.csrf_token()}}
 {{form.username.label}}{{form.username}} <br>
 {{form.password.label}}{{form.password}}<br>
 {{form.password2.label}}{{form.password2}}<br>
 {{form.submit}}
-</form>
+</form> -->
 {% for message in get_flashed_messages() %}
 {{message}}
 {% endfor %}

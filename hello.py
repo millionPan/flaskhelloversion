@@ -3,8 +3,41 @@ from flask import request,flash
 from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,SubmitField
 from wtforms.validators import DataRequired,EqualTo
+
+# 数据库
+from flask_sqlalchemy import SQLAlchemy
+
+
 app=Flask(__name__)
+
+
+# 配置数据库的地址
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:6060@127.0.0.1:3306/hello_sql'
+#跟踪数据库的修改-不建议开启 未来的版本中会移除
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key="itheima"
+
+db=SQLAlchemy(app)
+
+#两张表
+# 角色（管理员/普通用户）
+# 用户（角色ID）
+# 数据库模型，需要继承db.Model
+class Role(db.Model):
+# 定义表名
+   __tablename__='roles'
+# 定义字段 db.Column表示是一个字段
+   id=db.Column(db.Integer,primary_key=True)
+   name=db.Column(db.String(16),unique=True)
+
+class User(db.Model):
+# 定义表名
+    __tablename__='users'
+# 定义字段 db.Column表示是一个字段
+    id=db.Column(db.Integer,primary_key=True)
+    name=db.Column(db.String(16),unique=True)
+#db.ForeignKey('roles.id') 表示是外键，表名.id
+    role_id=db.Column(db.Integer,db.ForeignKey('roles.id'))
 # 目的：实现一个简单的登录的逻辑处理
 # 1.路由需要有get和post两种请求方式  -->需要判断请求方式
 # 2.获取请求的参数
@@ -88,4 +121,19 @@ def internal_server_error(e):
 
 
 if __name__=='__main__':
+    #删除表
+    db.drop_all()
+    #创建表
+    db.create_all()
+    #插入行
+    role=Role(name='admin')
+    db.session.add(role)
+    db.session.commit()
+    user=User(name='heima',role_id=role.id)
+    db.session.add(user)
+    db.session.commit()
+
+    #查询演练
+    User.query.all()
+
     app.run(debug=True)
